@@ -20,7 +20,7 @@
 import { ref, onMounted } from "vue";
 
 const days = ref([]);
-const selected = ref(50);
+const selected = ref(new Date().getDate());
 
 onMounted(() => {
   const date = new Date();
