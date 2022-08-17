@@ -1,14 +1,31 @@
 <template>
   <header class="header">
-    <span class="header__location">
+    <span class="header__location" @click="getLocation">
       <fa class="header__location__icon" icon="fa-solid fa-location-dot" />
-      <span class="header__location__text">Select location...</span>
+      <span
+        class="header__location__text"
+        :class="location != 'Select location...' ? 'location-selected' : ''"
+        v-text="location"
+      ></span>
     </span>
     <fa class="header__menu" icon="fa-solid fa-bars" />
   </header>
 </template>
 
+<script setup>
+import { ref } from "vue";
+
+const location = ref("Select location...");
+
+const getLocation = () => {
+  location.value = window.prompt("Please enter your location", "Guadalajara");
+};
+</script>
+
 <style lang="scss" scoped>
+.location-selected {
+  font-weight: 600;
+}
 .header {
   width: calc(100% - 4rem);
   padding: 0.5rem 2rem;
