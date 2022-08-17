@@ -12,6 +12,7 @@
 
 }
 .menu {
+  z-index: 5;
   position: fixed;
   bottom: 0;
   padding: 0.7rem 0;
