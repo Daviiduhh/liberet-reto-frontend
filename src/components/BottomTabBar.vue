@@ -12,10 +12,11 @@
 
 }
 .menu {
-  margin: auto 0 0 0;
+  position: fixed;
+  bottom: 0;
   padding: 0.7rem 0;
   width: 100%;
-  background-color: #E4E4E4;
+  background-color: #dcdcdc;
   display: flex;
   justify-content: space-between;
 
@@ -27,7 +28,7 @@
   }
 
   &__icon {
-    color: #4d4d4d;
+    color: #c7c7c7;
     font-size: 1.5rem;
   }
 }
