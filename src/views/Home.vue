@@ -48,6 +48,7 @@
           @click="
             selectedCategory = category;
             showCategories = false;
+            getMeals(category.strCategory);
           "
           :class="
             selectedCategory.idCategory == category.idCategory
@@ -82,9 +83,10 @@
         ></span>
       </div>
     </section>
-    <section class="meals">
+    <section class="meals" v-show="meals != {}">
       <CardMeal v-for="meal in meals" :meal="meal" :key="meal.idMeal" />
     </section>
+    <Loading class="loading" />
   </main>
 </template>
 
@@ -94,6 +96,7 @@ import axios from "axios";
 import Header from "../components/Header.vue";
 import Days from "../components/Days.vue";
 import CardMeal from "../components/CardMeal.vue";
+import Loading from "../components/Loading.vue"
 
 const meals = ref([]);
 const categories = ref([]);
@@ -125,18 +128,26 @@ const selectedTiempoDisponible = ref({
 const showCategories = ref(false);
 const showTiemposDisponibles = ref(false);
 
+const loading = ref(false);
+
 onMounted(() => {
   getMeals();
   getCategories();
 });
 
 function getMeals(category = "Beef") {
+  loading.value = true;
+  meals.value = [];
   axios
     .get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((res) => {
       meals.value = res.data.meals;
+      loading.value = false;
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      loading.value = false;
+    });
 }
 
 function getCategories() {
@@ -156,6 +167,10 @@ const showAlert = (message) => {
 <style lang="scss">
 .selectedCategory {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.loading {
+  margin: 20rem 0;
 }
 
 .main {

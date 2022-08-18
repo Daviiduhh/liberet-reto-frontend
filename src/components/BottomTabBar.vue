@@ -1,15 +1,20 @@
 <template>
   <menu class="menu">
-    <fa class="menu__icon" icon="fa-solid fa-cart-shopping" />
-    <fa class="menu__icon selected" icon="fa-solid fa-border-all" />
-    <fa class="menu__icon" icon="fa-solid fa-circle-user" />
+    <router-link to="/carrito">
+      <fa class="menu__icon" :class="$route.path == '/carrito' ? 'selected' : ''" icon="fa-solid fa-cart-shopping" />
+    </router-link>
+    <router-link to="/">
+      <fa class="menu__icon" :class="$route.path == '/' ? 'selected' : ''" icon="fa-solid fa-border-all" />
+    </router-link>
+    <router-link to="/usuario">
+      <fa class="menu__icon" :class="$route.path == '/usuario' ? 'selected' : ''" icon="fa-solid fa-circle-user" />
+    </router-link>
   </menu>
 </template>
 
 <style lang="scss" scoped>
 .selected {
-    color: #fcab3f !important;
-
+  color: #fcab3f !important;
 }
 .menu {
   z-index: 5;
@@ -22,10 +27,10 @@
   display: flex;
   justify-content: space-between;
 
-  & > svg:first-child {
+  & > *:first-child {
     margin-left: 200px;
   }
-  & > svg:last-child {
+  & > *:last-child {
     margin-right: 200px;
   }
 

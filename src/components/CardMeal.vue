@@ -112,7 +112,7 @@ const firstValue = computed(() => {
   &__name {
     font-weight: 600;
     text-align: left;
-    padding: 0 0.5rem;
+    padding: 0 0.3rem 0.3rem 0.3rem;
     z-index: 5;
   }
 
@@ -131,7 +131,6 @@ const firstValue = computed(() => {
   }
   &__name {
     color: #FCAB3F;
-    padding-bottom: 0.5rem;
   }
   &__watch {
     color: #FCAB3F;
