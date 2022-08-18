@@ -46,6 +46,8 @@ onMounted(() => {
   background-color: #fcab3f;
 }
 .days {
+  z-index: 10;
+  background-color: #fff;
   padding: 0.3rem 1rem;
   width: calc(100% - 2rem);
   display: flex;

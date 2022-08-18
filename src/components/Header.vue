@@ -27,6 +27,8 @@ const getLocation = () => {
   font-weight: 600;
 }
 .header {
+  z-index: 10;
+  background-color: #fff;
   width: calc(100% - 4rem);
   padding: 0.5rem 2rem;
   display: flex;
