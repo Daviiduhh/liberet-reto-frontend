@@ -3,19 +3,24 @@
   <Days />
   <main class="main">
     <section class="filter">
-      <button class="filter__btn">
+      <button
+        class="filter__btn"
+        @click="showTiemposDisponibles = !showTiemposDisponibles; showCategories = false"
+      >
         <fa class="filter__btn__icon" icon="fa-regular fa-clock" />
-        <span class="filter__btn__text">2:00 - 3:00 pm</span>
+        <span
+          class="filter__btn__text"
+          v-text="selectedTiempoDisponible.horario"
+        ></span>
       </button>
-      <button class="filter__btn">
+      <button class="filter__btn" @click="showCategories = !showCategories; showTiemposDisponibles = false">
         <fa class="filter__btn__icon" icon="fa-solid fa-utensils" />
         <span
-          @click="showCategories = !showCategories"
           class="filter__btn__text"
           v-text="selectedCategory.strCategory"
         ></span>
       </button>
-      <button class="filter__btn">
+      <button class="filter__btn" @click="showAlert('+1 Platillos')">
         <span class="filter__btn__icon">+1</span>
         <span class="filter__btn__text">Platillos</span>
       </button>
@@ -25,22 +30,46 @@
             class="filter__categories__title__icon"
             icon="fa-solid fa-utensils"
           />
-          <span
-            class="filter__categories__title__text"
-            v-text="selectedCategory.strCategory"
-          ></span>
+          <span class="filter__categories__title__text">Elige un servicio</span>
         </div>
         <span
           class="filter__categories__category"
           v-for="category in categories"
           :key="category.idCategory"
-          @click="selectedCategory = category"
+          @click="
+            selectedCategory = category;
+            showCategories = false;
+          "
           :class="
             selectedCategory.idCategory == category.idCategory
               ? 'selectedCategory'
               : ''
           "
           v-text="category.strCategory"
+        ></span>
+      </div>
+      <div class="filter__categories" v-show="showTiemposDisponibles">
+        <div class="filter__categories__title">
+          <fa
+            class="filter__categories__title__icon"
+            icon="fa-regular fa-clock"
+          />
+          <span class="filter__categories__title__text"
+            >Elige un horario de entrega</span
+          >
+        </div>
+        <span
+          class="filter__categories__category"
+          v-for="tiempo in tiemposDisponibles"
+          :key="tiempo.id"
+          @click="
+            selectedTiempoDisponible = tiempo;
+            showTiemposDisponibles = false;
+          "
+          :class="
+            selectedTiempoDisponible.id == tiempo.id ? 'selectedCategory' : ''
+          "
+          v-text="tiempo.horario"
         ></span>
       </div>
     </section>
@@ -62,10 +91,29 @@ import CardMeal from "./components/CardMeal.vue";
 
 const meals = ref([]);
 const categories = ref([]);
+const tiemposDisponibles = ref([
+  {
+    id: 1,
+    horario: "11:00 am - 12:00 am",
+  },
+  {
+    id: 2,
+    horario: "1:00 pm - 2:00 pm",
+  },
+  {
+    id: 3,
+    horario: "2:00 pm - 3:00 pm",
+  },
+]);
 
 const selectedCategory = ref({
   idCategory: "1",
   strCategory: "Beef",
+});
+
+const selectedTiempoDisponible = ref({
+  id: 1,
+  horario: "11:00 am - 12:00 am",
 });
 
 const showCategories = ref(false);
@@ -90,9 +138,12 @@ function getCategories() {
     .get("https:www.themealdb.com/api/json/v1/1/categories.php")
     .then((res) => {
       categories.value = res.data.categories;
-      console.log(categories.value);
     })
     .catch((e) => console.log(e));
+}
+
+const showAlert = (message) => {
+  window.alert("Haz clickeado: " + message)
 }
 </script>
 
