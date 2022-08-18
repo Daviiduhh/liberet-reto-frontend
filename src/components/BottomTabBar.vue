@@ -23,6 +23,7 @@
   margin: 0;
   padding: 0.7rem 0;
   width: 100%;
+  max-width: 720px;
   background-color: #dcdcdc;
   display: flex;
   justify-content: space-between;
