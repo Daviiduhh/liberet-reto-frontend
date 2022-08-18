@@ -15,6 +15,7 @@
   z-index: 5;
   position: fixed;
   bottom: 0;
+  margin: 0;
   padding: 0.7rem 0;
   width: 100%;
   background-color: #dcdcdc;
