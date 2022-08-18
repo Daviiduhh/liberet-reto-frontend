@@ -4,7 +4,7 @@
       class="day"
       v-for="day in days"
       :key="day.number"
-      @click="selected = day.number"
+      @click="selectDay(day)"
     >
       <span class="day__name" v-text="day.name"></span>
       <span
@@ -18,9 +18,17 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { usePerfilStore } from "../stores/perfil";
+
+const perfil = usePerfilStore();
 
 const days = ref([]);
 const selected = ref(new Date().getDate());
+
+const selectDay = (day) => {
+  selected.value = day.number;
+  perfil.setDiaSeleccionado(selected.value)
+};
 
 onMounted(() => {
   const date = new Date();

@@ -45,11 +45,7 @@
           class="filter__categories__category"
           v-for="category in categories"
           :key="category.idCategory"
-          @click="
-            selectedCategory = category;
-            showCategories = false;
-            getMeals(category.strCategory);
-          "
+          @click="setSelectedCategory(category)"
           :class="
             selectedCategory.idCategory == category.idCategory
               ? 'selectedCategory'
@@ -72,10 +68,7 @@
           class="filter__categories__category"
           v-for="tiempo in tiemposDisponibles"
           :key="tiempo.id"
-          @click="
-            selectedTiempoDisponible = tiempo;
-            showTiemposDisponibles = false;
-          "
+          @click="setSelectedTiempoDisponible(tiempo)"
           :class="
             selectedTiempoDisponible.id == tiempo.id ? 'selectedCategory' : ''
           "
@@ -84,7 +77,12 @@
       </div>
     </section>
     <section class="meals" v-show="meals != {}">
-      <CardMeal v-for="meal in meals" :meal="meal" :key="meal.idMeal" />
+      <CardMeal
+        v-for="meal in meals"
+        :key="meal.idMeal"
+        :meal="meal"
+        :functional="true"
+      />
     </section>
     <Loading :loading="loading" class="loading" />
   </main>
@@ -93,10 +91,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { usePerfilStore } from "../stores/perfil";
 import Header from "../components/Header.vue";
 import Days from "../components/Days.vue";
 import CardMeal from "../components/CardMeal.vue";
-import Loading from "../components/Loading.vue"
+import Loading from "../components/Loading.vue";
+
+const perfil = usePerfilStore();
 
 const meals = ref([]);
 const categories = ref([]);
@@ -124,6 +125,19 @@ const selectedTiempoDisponible = ref({
   id: 1,
   horario: "11:00 am - 12:00 am",
 });
+
+const setSelectedCategory = (category) => {
+  selectedCategory.value = category;
+  showCategories.value = false;
+  getMeals(category.strCategory);
+  perfil.setCategoriaSeleccionada(category);
+};
+
+const setSelectedTiempoDisponible = (tiempo) => {
+  selectedTiempoDisponible.value = tiempo;
+  showTiemposDisponibles.value = false;
+  perfil.setPeriodoSeleccionado(tiempo);
+};
 
 const showCategories = ref(false);
 const showTiemposDisponibles = ref(false);

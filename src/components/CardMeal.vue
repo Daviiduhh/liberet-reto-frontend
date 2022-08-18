@@ -14,7 +14,11 @@
       <span class="meal__name" v-text="meal.strMeal"></span>
     </div>
     <div class="meal__bottom">
-      <fa class="meal__watch" icon="fa-regular fa-clock" />
+      <fa
+        class="meal__watch"
+        icon="fa-regular fa-clock"
+        @click="incrementCarrito(meal)"
+      />
       <span class="meal__span" v-text="price"></span>
     </div>
   </div>
@@ -23,9 +27,13 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
+import { useCarritoStore } from "../stores/carrito";
+
+const carrito = useCarritoStore();
 
 const props = defineProps({
   meal: Object,
+  functional: Boolean
 });
 
 onMounted(() => {
@@ -60,6 +68,12 @@ const firstValue = computed(() => {
     return mealDetails.value.strTags.split(",")[0];
   }
 });
+
+const incrementCarrito = (meal) => {
+  if (props.functional) {
+    carrito.incrementCarrito(meal)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -117,7 +131,7 @@ const firstValue = computed(() => {
   }
 
   &__first {
-    color: #FDC963;
+    color: #fdc963;
     background-color: #fff;
     border-radius: 0.2rem;
     position: absolute;
@@ -130,10 +144,10 @@ const firstValue = computed(() => {
     color: #fff;
   }
   &__name {
-    color: #FCAB3F;
+    color: #fcab3f;
   }
   &__watch {
-    color: #FCAB3F;
+    color: #fcab3f;
     font-size: 1.5rem;
   }
 }

@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from 'pinia';
 import "./style.css";
 import router from "./router";
 import App from "./App.vue";
@@ -25,4 +26,7 @@ library.add(
   faUtensils
 );
 
-createApp(App).component("fa", FontAwesomeIcon).use(router).mount("#app");
+const pinia = createPinia()
+const app = createApp(App)
+
+app.component("fa", FontAwesomeIcon).use(pinia).use(router).mount("#app");
