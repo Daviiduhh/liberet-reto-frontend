@@ -86,7 +86,7 @@
     <section class="meals" v-show="meals != {}">
       <CardMeal v-for="meal in meals" :meal="meal" :key="meal.idMeal" />
     </section>
-    <Loading class="loading" />
+    <Loading :loading="loading" class="loading" />
   </main>
 </template>
 
