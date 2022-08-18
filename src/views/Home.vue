@@ -152,7 +152,7 @@ function getMeals(category = "Beef") {
 
 function getCategories() {
   axios
-    .get("https:www.themealdb.com/api/json/v1/1/categories.php")
+    .get("https://www.themealdb.com/api/json/v1/1/categories.php")
     .then((res) => {
       categories.value = res.data.categories;
     })
